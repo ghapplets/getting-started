@@ -12,6 +12,8 @@ TODO link to top-level README.
 * `build` the Docker image
   * `minikube start` if not already running
   * `eval $(minikube docker-env) && docker build --no-cache -t github/hubotjs .`
+* run the Docker image
+  * `eval $(minikube docker-env) && docker run github/hubotjs .`
 * `install` the fission environment
   * `fission env create --name hubotjs --image github/hubotjs`
 * `cd ../samples`
@@ -24,6 +26,7 @@ TODO link to top-level README.
   * `fission route create --method POST --url /gh/applets/issue-comment --function issue-comment`
 * setup NGROK to point to the fission ROUTER URL
   * `minikube service list`
+  * `ngrok http [LOCAL_ROUTER_IP:PORT]`
 * change the webhook url in your GitHub App to be your NGROK url + `/gh/applets/issue-comment`
 * Create a new issue in the repo you installed the GitHub App into and see if the function is executed
   * `fission fn logs --name issue-comment`
