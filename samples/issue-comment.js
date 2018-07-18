@@ -18,7 +18,13 @@ function generateJwtToken() {
   );
 }
 
-async function postIssueComment(installationId, organization, repository, number, action) {
+async function postIssueComment(
+  installationId,
+  owner,
+  repository,
+  number,
+  action
+) {
   await octokit.authenticate({
     type: 'app',
     token: generateJwtToken(),
@@ -31,12 +37,12 @@ async function postIssueComment(installationId, organization, repository, number
   octokit.authenticate({ type: 'token', token });
 
   var result = await octokit.issues.createComment({
-      owner: organization,
-      repo: repository,
-      number: number,
-      body: `Updated Function from Channel All Hands demo for action ${action}`
-  })
-  return result
+    owner,
+    repo: repository,
+    number,
+    body: `Updated Function from Channel All Hands demo for action ${action}`
+  });
+  return result;
 }
 
 module.exports = async function(context) {
@@ -44,14 +50,20 @@ module.exports = async function(context) {
   const body = JSON.parse(stringBody);
   const action = body.action;
   const number = body.issue.number;
-  const repository = body.repository.name
-  const organization = body.organization.login
-  const installationId = body.installation.id //get from webhook payload
+  const repository = body.repository.name;
+  const owner = body.repository.owner.login;
+  const installationId = body.installation.id; //get from webhook payload
 
   try {
     var response = "";
     if (action === "opened") {
-      response = await postIssueComment(installationId, organization, repository, number, action);
+      response = await postIssueComment(
+        installationId,
+        owner,
+        repository,
+        number,
+        action
+      );
     }
     return {
         status: 200,

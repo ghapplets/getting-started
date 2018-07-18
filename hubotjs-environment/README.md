@@ -27,6 +27,11 @@ TODO link to top-level README.
 * setup NGROK to point to the fission ROUTER URL
   * `minikube service list`
   * `ngrok http [LOCAL_ROUTER_IP:PORT]`
+  * NOTE: each time you restart ngrok the URL will change so you'll need to update the GitHub App settings
 * change the webhook url in your GitHub App to be your NGROK url + `/gh/applets/issue-comment`
 * Create a new issue in the repo you installed the GitHub App into and see if the function is executed
   * `fission fn logs --name issue-comment`
+
+If you make any changes to the fission function, reload them like so:
+
+* `fission fn update --name issue-comment --code ../samples/issue-comment.js`
