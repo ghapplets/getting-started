@@ -1,0 +1,28 @@
+{
+  "name": "fission-hubotjs-runtime",
+  "version": "0.1.0",
+  "author": "Lee Faus",
+  "contributors": [
+    {
+      "name": "Lee Faus",
+      "email": "leefaus@github.com"
+    }
+  ],
+  "description": "NodeJS run container for GitHub Octokit on the fission framework",
+  "engines": {
+    "node": ">=10.1.0"
+  },
+  "dependencies": {
+    "@octokit/rest": "^15.2.6",
+    "body-parser": "*",
+    "co": "~4.6.0",
+    "express": "*",
+    "jsonwebtoken": ">=7.3.0",
+    "minimist": "*",
+    "morgan": "*",
+    "mz": "~2.7.0",
+    "request": "^2.81.0",
+    "request-promise-native": "^1.0.3",
+    "underscore": ">=1.8.3"
+  }
+}
