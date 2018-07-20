@@ -1,0 +1,14 @@
+apiVersion: fission.io/v1
+kind: HTTPTrigger
+metadata:
+  creationTimestamp: null
+  name: 787712e2-1e1a-4cce-b5c5-3d12d1c875e7
+  namespace: default
+spec:
+  createingress: false
+  functionref:
+    name: issue-comment
+    type: name
+  host: ""
+  method: POST
+  relativeurl: /gh/applets/issue-comment

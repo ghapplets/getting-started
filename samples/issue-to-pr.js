@@ -1,8 +1,8 @@
 const octokit = require('@octokit/rest')()
 const jsonwebtoken = require('jsonwebtoken')
 const fs = require('fs')
-const appId = 14518 //app id from setup
-const pem = fs.readFileSync('sample-applet.2018-07-09.private-key.pem')
+const appId = fs.readFileSync('/secrets/default/gh-applets/GH_APP_ID')
+const pem = fs.readFileSync('/secrets/default/gh-applets/GH_PEM_KEY')
 const re = /^\w+\s#?\d*/i
 
 
