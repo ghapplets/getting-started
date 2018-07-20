@@ -29,7 +29,7 @@ Let's build our `github/hubotjs` container.
 
 * setup NGROK to point to the fission ROUTER URL
   * `minikube service list`
-  * `ngrok http [LOCAL_ROUTER_IP:PORT]`
+  * `ngrok http ${$(minikube service --url -n fission router)#*//}`
   * NOTE: each time you restart ngrok the URL will change so you'll need to update the GitHub App settings
 * change the webhook url in your GitHub App to be your NGROK url + `/gh/applets/issue-comment`
 * Create a new issue in the repo you installed the GitHub App into and see if the function is executed
