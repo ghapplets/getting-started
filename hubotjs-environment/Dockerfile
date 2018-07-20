@@ -11,7 +11,7 @@ RUN mkdir -p /userfunc
 WORKDIR /usr/src/app
 
 COPY package.json /usr/src/app/
-RUN npm install && npm cache clean --force
+RUN npm install && npm cache clean --force && npm ls
 COPY server.js /usr/src/app/server.js
 COPY sample-applet.2018-07-09.private-key.pem /usr/src/app/sample-applet.2018-07-09.private-key.pem
 

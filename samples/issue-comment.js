@@ -1,9 +1,8 @@
 const octokit = require('@octokit/rest')()
 const jsonwebtoken = require('jsonwebtoken')
 const fs = require('fs')
-const appId = 14518 //app id from setup
-const pem = fs.readFileSync('sample-applet.2018-07-09.private-key.pem')
-
+const appId = fs.readFileSync('/secrets/default/gh-applets/GH_APP_ID')
+const pem = fs.readFileSync('/secrets/default/gh-applets/GH_PEM_KEY')
 
 function generateJwtToken() {
   // Sign with RSA SHA256
@@ -40,7 +39,7 @@ async function postIssueComment(
     owner,
     repo: repository,
     number,
-    body: `Updated Function from Channel All Hands demo for action ${action}`
+    body: `Updated Function from Channel All Hands demo for action ${action} and appId ${appIdFromSecret}`
   });
   return result;
 }
