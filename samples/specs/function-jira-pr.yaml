@@ -1,0 +1,52 @@
+include:
+- jira-pr.js
+kind: ArchiveUploadSpec
+name: jira-pr-js
+
+---
+apiVersion: fission.io/v1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: jira-pr-js-ytai
+  namespace: default
+spec:
+  deployment:
+    checksum: {}
+    type: url
+    url: archive://jira-pr-js
+  environment:
+    name: hubotjs
+    namespace: default
+  source:
+    checksum: {}
+status:
+  buildstatus: none
+
+---
+apiVersion: fission.io/v1
+kind: Function
+metadata:
+  creationTimestamp: null
+  name: jira-pr
+  namespace: default
+spec:
+  InvokeStrategy:
+    ExecutionStrategy:
+      ExecutorType: poolmgr
+      MaxScale: 1
+      MinScale: 0
+      TargetCPUPercent: 80
+    StrategyType: execution
+  configmaps: null
+  environment:
+    name: hubotjs
+    namespace: default
+  package:
+    packageref:
+      name: jira-pr-js-ytai
+      namespace: default
+  resources: {}
+  secrets:
+  - name: gh-applets
+    namespace: default
