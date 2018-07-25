@@ -1,8 +1,18 @@
-const octokit = require('@octokit/rest')()
-const jsonwebtoken = require('jsonwebtoken')
-const fs = require('fs')
-const appId = fs.readFileSync('/secrets/default/gh-applets/GH_APP_ID')
-const pem = fs.readFileSync('/secrets/default/gh-applets/GH_PEM_KEY')
+const octokit = require("@octokit/rest")();
+const jsonwebtoken = require("jsonwebtoken");
+const fs = require("fs");
+
+const appId = parseInt(
+  Buffer.from(
+    fs.readFileSync("/secrets/default/gh-applets/GH_APP_ID"),
+    "base64"
+  ).toString("ascii")
+);
+
+const pem = Buffer.from(
+  fs.readFileSync("/secrets/default/gh-applets/GH_PEM_KEY"),
+  "base64"
+).toString("ascii");
 
 function generateJwtToken() {
   // Sign with RSA SHA256
@@ -39,7 +49,7 @@ async function postIssueComment(
     owner,
     repo: repository,
     number,
-    body: `Updated Function from Channel All Hands demo for action ${action} and appId ${appIdFromSecret}`
+    body: `Updated Function from Channel All Hands demo for action ${action} and appId ${appId}`
   });
   return result;
 }
