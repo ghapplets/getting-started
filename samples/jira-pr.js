@@ -25,7 +25,7 @@ const BASE_BRANCH = "master"; // target branch for PRs
 // Secrets
 const appId = parseInt(
   Buffer.from(
-    fs.readFileSync("/secrets/default/gh-applets/GH_APP_ID"),
+    fs.readFileSync("/secrets/default/ghapplets-jira-pr/GH_APP_ID"),
     "base64"
   ).toString("ascii")
 );
@@ -34,13 +34,13 @@ const appId = parseInt(
 // Use first GitHub webhook call to store ID to a ConfigMap?
 const installation_id = parseInt(
   Buffer.from(
-    fs.readFileSync("/secrets/default/gh-applets/GH_INST_ID"),
+    fs.readFileSync("/secrets/default/ghapplets-jira-pr/GH_INST_ID"),
     "base64"
   ).toString("ascii")
 );
 
 const pem = Buffer.from(
-  fs.readFileSync("/secrets/default/gh-applets/GH_PEM_KEY"),
+  fs.readFileSync("/secrets/default/ghapplets-jira-pr/GH_PEM_KEY"),
   "base64"
 ).toString("ascii");
 

@@ -25,7 +25,7 @@ Create a copy of `hubotjs-environment/secrets.example.yaml` called `secrets.yaml
 ```
 cp hubotjs-environment/secrets.example.yaml hubotjs-environment/secrets.yaml
 ```
-Please note: your secrets will be ignored by git on purpose.
+Please note: your `secrets.yaml` file is already added to `.gitignore`.
 
 Substitute the values for your app (make sure you base64 encode them first!) and then run in your terminal:
 
