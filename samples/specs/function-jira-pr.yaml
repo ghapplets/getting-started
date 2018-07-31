@@ -48,5 +48,5 @@ spec:
       namespace: default
   resources: {}
   secrets:
-  - name: gh-applets
+  - name: ghapplets-jira-pr
     namespace: default

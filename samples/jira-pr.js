@@ -12,14 +12,17 @@
 * Configure the constants below based on your needs.
 */
 
-const octokit = require("@octokit/rest")();
+const octokit = require("@octokit/rest")({
+  // custom GitHub Enterprise URL
+  baseUrl: "http://github.gitaboard.com/api/v3"
+});
 const jsonwebtoken = require("jsonwebtoken");
 const fs = require("fs");
 
 // Constants
 const JIRA_ISSUE_LABEL = "develop"; // Matches a specific Jira label
-const REPO_NAME = "test-test"; // The name of your repository
-const REPO_OWNER = "pierluigi"; // The repository owner (user or org)
+const REPO_NAME = "jira-pr-tests"; // The name of your repository
+const REPO_OWNER = "chewbacca"; // The repository owner (user or org)
 const BASE_BRANCH = "master"; // target branch for PRs
 
 // Secrets

@@ -1,19 +1,34 @@
-const octokit = require('@octokit/rest')()
-const jsonwebtoken = require('jsonwebtoken')
-const fs = require('fs')
-const appId = fs.readFileSync('/secrets/default/gh-applets/GH_APP_ID')
-const pem = fs.readFileSync('/secrets/default/gh-applets/GH_PEM_KEY')
+const octokit = require("@octokit/rest")({
+  // custom GitHub Enterprise URL
+  baseUrl: "http://github.gitaboard.com/api/v3"
+});
+const jsonwebtoken = require("jsonwebtoken");
+const fs = require("fs");
+
+const appId = parseInt(
+  Buffer.from(
+    fs.readFileSync("/secrets/default/gh-applets/GH_APP_ID"),
+    "base64"
+  ).toString("ascii")
+);
+
+const pem = Buffer.from(
+  fs.readFileSync("/secrets/default/gh-applets/GH_PEM_KEY"),
+  "base64"
+).toString("ascii");
 
 function generateJwtToken() {
   // Sign with RSA SHA256
+  console.log(`appId = ${appId}`);
+  console.log(`pem = ${pem}`);
   return jsonwebtoken.sign(
     {
       iat: Math.floor(new Date() / 1000),
       exp: Math.floor(new Date() / 1000) + 60,
-      iss: appId,
+      iss: appId
     },
     pem,
-    { algorithm: 'RS256' },
+    { algorithm: "RS256" }
   );
 }
 
@@ -24,22 +39,27 @@ async function postIssueComment(
   number,
   action
 ) {
+  console.log(`generate jwt token`);
   await octokit.authenticate({
-    type: 'app',
-    token: generateJwtToken(),
+    type: "app",
+    token: generateJwtToken()
   });
 
-  const { data: { token } } = await octokit.apps.createInstallationToken({
-    installation_id: installationId,
+  console.log(`generate installation token ${installationId}`);
+  const {
+    data: { token }
+  } = await octokit.apps.createInstallationToken({
+    installation_id: installationId
   });
 
-  octokit.authenticate({ type: 'token', token });
+  console.log(`authenticate with token`);
+  octokit.authenticate({ type: "token", token });
 
   var result = await octokit.issues.createComment({
     owner,
     repo: repository,
     number,
-    body: `Updated Function from Channel All Hands demo for action ${action} and appId ${appIdFromSecret}`
+    body: `Updated Function for Kubernetes demo for action ${action} and appId ${appId}.`
   });
   return result;
 }
@@ -65,18 +85,18 @@ module.exports = async function(context) {
       );
     }
     return {
-        status: 200,
-        body: {
-          text: response
-        },
-        headers: {
-          'Content-Type': 'application/json'
-        }
-    }
+      status: 200,
+      body: {
+        text: response
+      },
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
   } catch (e) {
     return {
-        status: 500,
-        body: e
+      status: 500,
+      body: e
     };
   }
-}
+};
