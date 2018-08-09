@@ -1,0 +1,14 @@
+apiVersion: fission.io/v1
+kind: HTTPTrigger
+metadata:
+  creationTimestamp: null
+  name: 9944acdb-d715-40db-8c27-8e583fd90736
+  namespace: default
+spec:
+  createingress: false
+  functionref:
+    name: jira-pr
+    type: name
+  host: ""
+  method: POST
+  relativeurl: /gh/applets/jira-pr

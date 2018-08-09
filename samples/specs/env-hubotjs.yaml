@@ -12,7 +12,7 @@ spec:
   resources: {}
   runtime:
     functionendpointport: 0
-    image: github/hubotjs
+    image: continuouslee/hubotjs
     loadendpointpath: ""
     loadendpointport: 0
   version: 1
