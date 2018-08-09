@@ -1,7 +1,7 @@
 # What problem are we trying to solve?
 We need a solution that allows our SI partners to automate SDLC workflows based on industry vertical needs.  These workflows and toolchains are currently being called _blueprints_ inside our partner community.  
 
-Currently, integrating GitHub Enterprise into the SDLC requires the assumption that **every** SDLC workflow begins on GitHub Enterprise.  Our business partners see GitHub Enterprise as one of many products inside their customer's overall toolchain purchase.  As GitHub Enterprise evolves into a **Platform**, we need a way to simplify building integrations and workflows that can connect the overall SDLC.
+Currently, integrating GitHub Enterprise into the SDLC requires the assumption that **every** SDLC workflow begins on GitHub Enterprise.  Our business partners see GitHub Enterprise as one of many products inside their customer's overall toolchain purchase.  As GitHub Enterprise evolves into a **Platform**, we need a way to simplify building integrations and workflows that can establish an integrated SDLC toolchain.
 
 _This is not a GitHub product and will not be supported by GitHub.  The goal is for our SIs to perform the development and delivery of these workflows with guidance from the GitHub Partners team_
 
@@ -40,7 +40,7 @@ Therefore, the only people building integrations for GitHub were larger ISVs.  T
 
 Due to the security concerns of OAuth, GitHub moved to a new model for extending it's platform called [GitHub Apps](https://developer.github.com/apps/building-github-apps/).  A GitHub developer, @bkeepers, built a reference implementation of a GitHub App in Node.js called [Probot](https://github.com/probot/probot).  Probot is great example of how you could extend GitHub :sparkles:.  This still uses the methodology where GitHub events are triggered via Webhooks and Probot is running an [Express](https://expressjs.com/) web server waiting to accept the JSON payload and perform some action based on that data.  Since we don't know when an action will get triggered, the Probot App must be always available.  This creates some concern with our Enterprise customers as some regulated workflows will depend on this integration for moving code throughout the SDLC.  If this capability is down, an exception would need to be established in InfoSec to allow a manual trigger to move the state forward.  
 
-# How are **Ghapplets** (GitHub Applets) different?
+# How are **GHApplets** (GitHub Applets) different?
 We took a look at the Probot architecture and broke it into it's primary components.  When we did this, we realized we could standardize the webhook receiver (http server) into a middleware component.  This would leave us with the ability to trigger functional applications based on a URL of the incoming payload.  This gives us a way to load balance http requests across the infrastructure.  We could also leverage the load balancer to store messages into NATs or a Message Queue for delayed processing should a service be down allowing for guaranteed delivery of the messages.  
 
 Since we didn't want to build out our own technology stack, we looked across the industry for how others were solving this problem.  We found the common way this is being solved is with [FaaS (Function as a Service)](https://stackify.com/function-as-a-service-serverless-architecture/).  The primary capability we saw was
