@@ -1,1 +1,2 @@
 /hubotjs-environment/*.pem
+/hubotjs-environment/secrets.yaml
