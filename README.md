@@ -11,7 +11,7 @@ Based on the current deployment requirements of GitHub Enterprise, we know there
 - Industry proven technology
 - Security
 - Load balancing
-- High availability with clustering
+- High Availability with clustering
 - Logging
 - Documented backup procedures
 - Proven performance metrics
