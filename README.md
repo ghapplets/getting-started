@@ -51,7 +51,7 @@ This allows us to build lightweight functions to perform actions based on any we
 
 ![](images/FuturePoint2Point.png)
 
-# What is a Ghapplet?
+# What is a GHApplet?
 Please refer to [our "vision" deck](vision/GitHubAppletsVisionDeck.pdf) while we scope out some deliverables in our Project Board.
 
 # Next Steps
